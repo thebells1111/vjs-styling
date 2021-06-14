@@ -66,6 +66,7 @@ class Title extends Plugin {
     this.subtitleDiv = subtitle
     }   
     video.insertBefore(div, video.childNodes[0]);
+  
   }
  
 
@@ -74,5 +75,6 @@ class Title extends Plugin {
 
   }
 }
+
 
 videojs.registerPlugin('title', Title);

@@ -69,7 +69,8 @@
 				loadScript(
 					'https://cdn.jsdelivr.net/npm/videojs-http-source-selector@latest/dist/videojs-http-source-selector.js'
 				),
-				loadScript('/dist/overlay.js')
+				loadScript('/dist/overlay.js'),
+				loadScript('/dist/progressBar.js')
 			]);
 		})();
 
@@ -80,30 +81,10 @@
 
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
 
-		class ProgressControlBar extends videojs.getComponent('ProgressControl') {
+		class TitleBars extends videojs.getComponent('Component') {
 			constructor(player, options = {}) {
 				super(player, options);
-				this.addClass('progress-control-bar');
-				console.log(this);
-				player.on('play', () => {
-					this.addClass('has-started');
-					// this.addClass('vjs-user-inactive');
-					// this.removeClass('vjs-user-active');
-				});
-				player.on('pause', () => {
-					// this.addClass('vjs-user-active');
-					// this.removeClass('vjs-user-inactive');
-				});
-				player.on('useractive', () => {
-					this.addClass('vjs-user-active');
-					this.removeClass('vjs-user-inactive');
-				});
-				player.on('userinactive', () => {
-					if (!player.paused()) {
-						this.addClass('vjs-user-inactive');
-						this.removeClass('vjs-user-active');
-					}
-				});
+				this.addClass('title-bar');
 			}
 		}
 
@@ -141,12 +122,28 @@
 			}
 		});
 
-		$player.addChild(new ProgressControlBar($player));
+		let x = $player.addChild(
+			new TitleBars($player, {
+				createEl: function () {
+					return videojs.createEl('div', {
+						// Prefixing classes of elements within a player with "vjs-"
+						// is a convention used in Video.js.
+						className: 'vjs-title-bar'
+					});
+				}
+			})
+		);
+		x.addChild('SubsCapsButton');
 
-		let title = $player.title({
-			title: 'Title',
-			subtitle: 'Subtitle'
-		});
+		x.addChild(new ProgressControlBar($player));
+		x.addChild('FullscreenToggle');
+
+		console.log(x);
+
+		// let title = $player.title({
+		// 	title: 'Title',
+		// 	subtitle: 'Subtitle'
+		// });
 
 		$player.httpSourceSelector();
 
@@ -167,7 +164,7 @@
 
 		$player.ready(function () {
 			$player.volume(0.01); // 1%
-			title.updateTitle('New Title');
+			// title.updateTitle('New Title');
 		});
 	}
 </script>
