@@ -1,0 +1,37 @@
+.video-js .vjs-current-time, .vjs-no-flex .vjs-current-time {
+  display: initial;
+}
+
+.video-js .vjs-duration, .vjs-no-flex .vjs-duration {
+  display: initial;
+}
+
+.video-js .vjs-title-bar {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  
+  /*
+    By default, do not show the title bar.
+  */
+  display: none;
+  font-size: 2em;
+  padding: .5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* 
+  Only show the title bar after playback has begun (so as not to hide
+  the big play button) and only when paused or when the user is 
+  interacting with the player.
+*/
+.video-js.vjs-paused.vjs-has-started .vjs-title-bar,
+.video-js.vjs-user-active.vjs-has-started .vjs-title-bar{
+  display: block;
+}
+
+#video > div.vjs-control-bar.progress-control-bar {
+  bottom: 20px
+}
