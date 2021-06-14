@@ -79,52 +79,31 @@
 		await scriptPromise;
 
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
-		class ToggleCaptionsButton extends videojs.getComponent('Button') {
-			constructor(player, options = {}) {
-				super(player, options);
-				this.addClass('vjs-captions-toggle');
 
-				// captions are "on" by default
-				this.addClass('vjs-captions-on');
-			}
-
-			/**
-			 * Toggle the subtitle track on and off upon click
-			 */
-			handleClick(_e) {
-				const textTracks = this.player.textTracks();
-
-				for (let i = 0; i < textTracks.length; i++) {
-					if (textTracks[i].kind !== 'subtitles') {
-						continue;
-					}
-
-					// toggle showing the captions
-					if (textTracks[i].mode === 'showing') {
-						textTracks[i].mode = 'hidden';
-						this.removeClass('vjs-captions-on');
-					} else {
-						textTracks[i].mode = 'showing';
-						this.addClass('vjs-captions-on');
-					}
-				}
-			}
-		}
-
-		class ProgressControlBar extends videojs.getComponent('ControlBar') {
+		class ProgressControlBar extends videojs.getComponent('ProgressControl') {
 			constructor(player, options = {}) {
 				super(player, options);
 				this.addClass('progress-control-bar');
-				this.removeChild(this.getChild('PlayToggle'));
-				this.removeChild(this.getChild('VolumePanel'));
-				this.removeChild(this.getChild('CurrentTimeDisplay'));
-				this.removeChild(this.getChild('TimeDivider'));
-				this.removeChild(this.getChild('DurationDisplay'));
-				this.removeChild(this.getChild('CustomControlSpacer'));
-				this.removeChild(this.getChild('PlaybackRateMenuButton'));
-				this.removeChild(this.getChild('SubsCapsButton'));
-				this.removeChild(this.getChild('PictureInPictureToggle'));
-				this.removeChild(this.getChild('FullscreenToggle'));
+				console.log(this);
+				player.on('play', () => {
+					this.addClass('has-started');
+					// this.addClass('vjs-user-inactive');
+					// this.removeClass('vjs-user-active');
+				});
+				player.on('pause', () => {
+					// this.addClass('vjs-user-active');
+					// this.removeClass('vjs-user-inactive');
+				});
+				player.on('useractive', () => {
+					this.addClass('vjs-user-active');
+					this.removeClass('vjs-user-inactive');
+				});
+				player.on('userinactive', () => {
+					if (!player.paused()) {
+						this.addClass('vjs-user-inactive');
+						this.removeClass('vjs-user-active');
+					}
+				});
 			}
 		}
 
@@ -135,6 +114,10 @@
 					{
 						name: 'CurrentTimeDisplay'
 					},
+
+					{
+						name: 'DurationDisplay'
+					},
 					{
 						name: 'CustomControlSpacer'
 					},
@@ -142,22 +125,28 @@
 					{
 						name: 'playToggle'
 					},
+
 					{
 						name: 'SubsCapsButton'
 					},
 
 					{
-						name: 'fullscreenToggle'
+						name: 'PlaybackRateMenuButton'
 					},
+
 					{
-						name: 'DurationDisplay'
+						name: 'fullscreenToggle'
 					}
 				]
 			}
 		});
 
-		$player.addChild(new ToggleCaptionsButton($player));
 		$player.addChild(new ProgressControlBar($player));
+
+		let title = $player.title({
+			title: 'Title',
+			subtitle: 'Subtitle'
+		});
 
 		$player.httpSourceSelector();
 
@@ -178,6 +167,7 @@
 
 		$player.ready(function () {
 			$player.volume(0.01); // 1%
+			title.updateTitle('New Title');
 		});
 	}
 </script>
@@ -191,7 +181,7 @@
 		<!-- svelte-ignore a11y-media-has-caption-->
 		<video
 			id="video"
-			class="video-js vjs-default-skin vjs-big-play-centered vjs-show-big-play-button-on-pause"
+			class="video-js vjs-default-skin vjs-big-play-centered "
 			preload="none"
 			controls
 			poster="https://noagendatube.com/lazy-static/avatars/06a8b6b1-08ce-4d40-912a-a5a8345c49dd.png"
