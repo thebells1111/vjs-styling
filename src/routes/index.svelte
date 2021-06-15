@@ -63,13 +63,11 @@
 				loadScript(
 					'https://cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js'
 				),
-				loadScript(
-					'https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@latest/dist/videojs-contrib-quality-levels.min.js'
-				),
-				loadScript(
-					'https://cdn.jsdelivr.net/npm/videojs-http-source-selector@latest/dist/videojs-http-source-selector.js'
-				),
-				loadScript('/dist/overlay.js'),
+				loadScript('/dist/videojs-contrib-quality-levels.js'),
+				loadScript('/dist/videojs-http-source-selector.js'),
+				loadScript('/dist/topbar.js'),
+				loadScript('/dist/title-overlay.js'),
+				loadScript('/dist/subtitle-overlay.js'),
 				loadScript('/dist/progressBar.js')
 			]);
 		})();
@@ -80,13 +78,6 @@
 		await scriptPromise;
 
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
-
-		class TitleBars extends videojs.getComponent('Component') {
-			constructor(player, options = {}) {
-				super(player, options);
-				this.addClass('title-bar');
-			}
-		}
 
 		$player = videojs('video', {
 			playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3],
@@ -99,53 +90,38 @@
 					{
 						name: 'DurationDisplay'
 					},
+
+					{
+						name: 'PlaybackRateMenuButton'
+					},
 					{
 						name: 'CustomControlSpacer'
 					},
 
 					{
 						name: 'playToggle'
-					},
-
-					{
-						name: 'SubsCapsButton'
-					},
-
-					{
-						name: 'PlaybackRateMenuButton'
-					},
-
-					{
-						name: 'fullscreenToggle'
 					}
 				]
 			}
 		});
 
-		let x = $player.addChild(
-			new TitleBars($player, {
-				createEl: function () {
-					return videojs.createEl('div', {
-						// Prefixing classes of elements within a player with "vjs-"
-						// is a convention used in Video.js.
-						className: 'vjs-title-bar'
-					});
-				}
-			})
-		);
-		x.addChild('SubsCapsButton');
+		$player.addChild(new ProgressControlBar($player, {}));
+		let topBar = $player.addChild(new TopBar($player, {}));
+		let title = new Title($player, {
+			text: 'Title',
+			parent: topBar
+		});
+		let subtitle = new Subtitle($player, {
+			text: 'Subtitle',
+			parent: topBar
+		});
+		topBar.addChild('SubsCapsButton');
+		topBar.addChild(title);
 
-		x.addChild(new ProgressControlBar($player));
-		x.addChild('FullscreenToggle');
+		topBar.addChild(subtitle);
+		topBar.addChild('FullscreenToggle');
 
-		console.log(x);
-
-		// let title = $player.title({
-		// 	title: 'Title',
-		// 	subtitle: 'Subtitle'
-		// });
-
-		$player.httpSourceSelector();
+		$player.httpSourceSelector({ default: 'low' });
 
 		$player.src({
 			src:
@@ -165,6 +141,8 @@
 		$player.ready(function () {
 			$player.volume(0.01); // 1%
 			// title.updateTitle('New Title');
+			title.updateText('New Title');
+			subtitle.updateText('New Subtitle');
 		});
 	}
 </script>

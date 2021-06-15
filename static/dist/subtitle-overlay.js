@@ -1,15 +1,13 @@
-const Plugin = videojs.getPlugin('plugin');
-
 /**
  * A videojs plugin to display a logo image on the player.
  */
-class Title extends Plugin {
+class Subtitle extends videojs.getComponent('Component') {
   
   constructor(player, options) {
     super(player);   
     this.div = null;
-    this.titleDiv = null;
     this.subtitleDiv = null;
+    this.player = player;
     this.options = videojs.mergeOptions(options);
     this.player.ready(() => this._onPlayerReady());
     this.player.on('useractive', () => {
@@ -22,8 +20,7 @@ class Title extends Plugin {
         this.div.classList.remove('vjs-user-active');
       }
     });
-    this.updateTitle = (text)=>{this.titleDiv.textContent = text}
-    this.updateSubtitle = (text)=>{this.subtitleDiv.textContent = text}
+    this.updateText = (text)=>{this.subtitleDiv.textContent = text}
    
   }
 
@@ -33,8 +30,7 @@ class Title extends Plugin {
    * @private
    */
   _onPlayerReady() {
-    this.player.addClass('vjs-title');
-    if (!this.options.title) {
+    if (!this.options.text) {
       return;
     }
     this._setup();   
@@ -42,30 +38,22 @@ class Title extends Plugin {
 
  
   _setup() {
-    const video = this.player.el();
+    const parent = this.options.parent.el() || this.player.el();
 
     // Create div element
     const div = document.createElement('div');
     this.div = div;
 
-    div.classList.add('vjs-title-content');
-   
+    div.classList.add('vjs-subtitle');
+          
     
-  
-    const title = document.createElement('p'); 
-    title.textContent = this.options.title
-    title.classList.add('vjs-title-text');
-    div.appendChild(title);
-    this.titleDiv = title
-
-    if(this.options.subtitle){
     const subtitle = document.createElement('p'); 
-    subtitle.textContent = this.options.subtitle
+    subtitle.textContent = this.options.text
     subtitle.classList.add('vjs-subtitle-text');
     div.appendChild(subtitle);
     this.subtitleDiv = subtitle
-    }   
-    video.insertBefore(div, video.childNodes[0]);
+ 
+    parent.appendChild(div);
   
   }
  
@@ -77,4 +65,4 @@ class Title extends Plugin {
 }
 
 
-videojs.registerPlugin('title', Title);
+// videojs.registerPlugin('title', Title);
