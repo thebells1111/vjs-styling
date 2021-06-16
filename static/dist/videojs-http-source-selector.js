@@ -45,10 +45,12 @@
 			_proto.handleClick = function handleClick() {
 				var selected = this.options_;
 				console.log('Changing quality to:', selected.label);
+				console.log(selected);
 
 				_MenuItem.prototype.handleClick.call(this);
 
 				var levels = this.player().qualityLevels();
+				console.log(levels);
 
 				for (var i = 0; i < levels.length; i++) {
 					if (selected.index == levels.length) {
@@ -60,6 +62,8 @@
 						levels[i].enabled = false;
 					}
 				}
+
+				console.log(levels);
 			};
 
 			_proto.update = function update() {
@@ -210,8 +214,6 @@
 
 	var onPlayerReady = function onPlayerReady(player, options) {
 		player.addClass('vjs-http-source-selector');
-		console.log('videojs-http-source-selector initialized!');
-		console.log('player.techName_:' + player.techName_); //This plugin only supports level selection for HLS playback
 
 		if (player.techName_ != 'Html5') {
 			return false;
@@ -230,9 +232,7 @@
 				player.videojs_http_source_selector_initialized == 'undefined' ||
 				player.videojs_http_source_selector_initialized == true
 			) {
-				console.log('player.videojs_http_source_selector_initialized == true');
 			} else {
-				console.log('player.videojs_http_source_selector_initialized == false');
 				player.videojs_http_source_selector_initialized = true;
 				var controlBar = player.controlBar;
 				var sourceSelector = controlBar.addChild('SourceMenuButton');

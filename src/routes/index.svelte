@@ -64,7 +64,9 @@
 					'https://cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js'
 				),
 				loadScript('/dist/videojs-contrib-quality-levels.js'),
-				loadScript('/dist/videojs-http-source-selector.js'),
+				loadScript(
+					'https://unpkg.com/videojs-max-quality-selector/dist/videojs-max-quality-selector.min.js'
+				),
 				loadScript('/dist/topbar.js'),
 				loadScript('/dist/title-overlay.js'),
 				loadScript('/dist/subtitle-overlay.js'),
@@ -72,7 +74,7 @@
 			]);
 		})();
 
-		loadStyle('https://vjs.zencdn.net/7.6.0/video-js.css');
+		loadStyle('/videojs.css');
 		loadStyle('/test.css');
 
 		await scriptPromise;
@@ -80,7 +82,7 @@
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
 
 		$player = videojs('video', {
-			playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3],
+			playbackRates: ['0.50', '0.75', '1.00', '1.25', '1.50', '2.00', '2.50', '3.00'],
 			controlBar: {
 				children: [
 					{
@@ -93,9 +95,6 @@
 
 					{
 						name: 'PlaybackRateMenuButton'
-					},
-					{
-						name: 'CustomControlSpacer'
 					},
 
 					{
@@ -121,7 +120,10 @@
 		topBar.addChild(subtitle);
 		topBar.addChild('FullscreenToggle');
 
-		$player.httpSourceSelector({ default: 'low' });
+		$player.maxQualitySelector({
+			displayMode: 1,
+			index: 5
+		});
 
 		$player.src({
 			src:
@@ -141,8 +143,8 @@
 		$player.ready(function () {
 			$player.volume(0.01); // 1%
 			// title.updateTitle('New Title');
-			title.updateText('New Title');
-			subtitle.updateText('New Subtitle');
+			title.updateText('Super Long and a really long long long New Title');
+			subtitle.updateText('Super Long and a really long long long New Subtitle');
 		});
 	}
 </script>

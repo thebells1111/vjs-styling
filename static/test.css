@@ -157,10 +157,51 @@
 }
 
 #video > div.vjs-modal-dialog.vjs-text-track-settings > div {
-	background-color: #333;
+	background-color: #2b333f;
 	z-index: 4;
 }
 
 #video > div.vjs-modal-dialog.vjs-text-track-settings > button {
 	z-index: 4;
+}
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
+	> div.vjs-menu
+	> ul {
+	max-height: fit-content;
+	background-color: #2b333f;
+	bottom: 16px;
+}
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
+	margin-left: 16px;
+	text-align: left;
+}
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button {
+	margin-right: 24px;
+}
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+	> div {
+	left: initial;
+	right: -8px;
+}
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+	> div
+	> ul {
+	max-height: fit-content;
+	background-color: #2b333f;
+	bottom: 16px;
 }
