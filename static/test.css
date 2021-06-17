@@ -205,3 +205,28 @@
 	background-color: #2b333f;
 	bottom: 16px;
 }
+
+#video
+	> div.vjs-control-bar
+	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+	> button {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+#video > button.vjs-big-play-button {
+	font-size: 6em;
+	line-height: 2em;
+	width: 2em;
+	height: 2em;
+	display: block;
+	padding: 0;
+	cursor: pointer;
+	opacity: 1;
+	background-color: #2b333f;
+	background-color: rgba(43, 51, 63, 0.7);
+	border-radius: 9.3em;
+	transition: width 0.4s height 0.4s;
+	margin-left: -0.75em;
+}

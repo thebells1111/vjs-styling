@@ -64,9 +64,7 @@
 					'https://cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js'
 				),
 				loadScript('/dist/videojs-contrib-quality-levels.js'),
-				loadScript(
-					'https://unpkg.com/videojs-max-quality-selector/dist/videojs-max-quality-selector.min.js'
-				),
+				loadScript('/dist/test.js'),
 				loadScript('/dist/topbar.js'),
 				loadScript('/dist/title-overlay.js'),
 				loadScript('/dist/subtitle-overlay.js'),
@@ -161,7 +159,6 @@
 			class="video-js vjs-default-skin vjs-big-play-centered "
 			preload="none"
 			controls
-			poster="https://noagendatube.com/lazy-static/avatars/06a8b6b1-08ce-4d40-912a-a5a8345c49dd.png"
 		/>
 	</div>
 </main>

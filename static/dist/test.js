@@ -29,7 +29,17 @@ class MaxQualityButton extends MenuButton {
 
 	handleMenuItemClick(e) {
 		const selectedIndex = parseInt(e.currentTarget.dataset.id, 10);
+		const selQuality = this.parent.qualityLevels.find(function (level) {
+			return level.id === selectedIndex;
+		});
 
+		if (selQuality) {
+			selQuality.isCurrent = true;
+		}
+
+		this.parent.button.$('.vjs-icon-placeholder').innerHTML = this.parent.getQualityDisplayString(
+			selQuality
+		);
 		this.parent.changeLevel(selectedIndex);
 	}
 
