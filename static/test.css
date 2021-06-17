@@ -113,6 +113,18 @@ div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-b
 }
 
 /* playbackrate button */
+.vjs-playback-rate div.vjs-playback-rate-value {
+	font-size: 18px;
+	line-height: initial;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button > div.vjs-menu {
+	font-size: 16px;
+}
+
 div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
 	> div.vjs-menu
 	> ul {
@@ -122,8 +134,7 @@ div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-butt
 }
 
 div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
-	text-align: left;
-	font-size: 1.25em;
+	text-align: center;
 }
 
 /* quality-select-button */
