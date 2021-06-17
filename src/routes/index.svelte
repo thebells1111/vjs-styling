@@ -81,43 +81,40 @@
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
 
 		$player = videojs('video', {
-			playbackRates: ['0.50', '0.75', '1.00', '1.25', '1.50', '2.00', '2.50', '3.00'],
+			playbackRates: ['3.00', '2.50', '2.00', '1.50', '1.00', '1.25', '0.75', '0.50'],
 			controlBar: {
 				children: [
 					{
-						name: 'CurrentTimeDisplay'
-					},
-
-					{
-						name: 'DurationDisplay'
+						name: 'SubsCapsButton'
 					},
 
 					{
 						name: 'PlaybackRateMenuButton'
+					},
+					{
+						name: 'FullscreenToggle'
 					}
 				]
 			}
 		});
 
 		$player.addChild(new ProgressControlBar($player, {}));
-		let topBar = $player.addChild(new TopBar($player, {}));
-		let title = new Title($player, {
-			text: 'Title',
-			parent: topBar
-		});
-		let subtitle = new Subtitle($player, {
-			text: 'Subtitle',
-			parent: topBar
-		});
-		topBar.addChild('SubsCapsButton');
-		topBar.addChild(title);
+		// let topBar = $player.addChild(new TopBar($player, {}));
+		// let title = new Title($player, {
+		// 	text: 'Title',
+		// 	parent: topBar
+		// });
+		// let subtitle = new Subtitle($player, {
+		// 	text: 'Subtitle',
+		// 	parent: topBar
+		// });
 
-		topBar.addChild(subtitle);
-		topBar.addChild('FullscreenToggle');
+		// topBar.addChild(title);
+		// topBar.addChild(subtitle);
 
 		$player.maxQualitySelector({
 			displayMode: 1,
-			index: 5
+			index: 2
 		});
 
 		$player.touchOverlay();
@@ -147,18 +144,9 @@
 </script>
 
 <main>
-	<div
-		class="container embed-responsive embed-responsive-16by9"
-		bind:clientWidth={width}
-		style="--player-height: {width}px"
-	>
+	<div class="container" bind:clientWidth={width} style="--player-height: {width}px">
 		<!-- svelte-ignore a11y-media-has-caption-->
-		<video
-			id="video"
-			class="video-js vjs-default-skin"
-			preload="none"
-			controls
-		/>
+		<video id="video" class="video-js vjs-default-skin" preload="none" controls />
 	</div>
 </main>
 
@@ -173,8 +161,8 @@
 	}
 
 	.container {
-		width: 900px;
-		height: 600px;
+		width: 360px;
+		height: 360px;
 		border-radius: 12px;
 	}
 

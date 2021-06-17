@@ -12,18 +12,23 @@
 	display: none;
 	width: 100%;
 	position: absolute;
-	bottom: 50px;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 50px;
 	background-color: #2b333f;
 	background-color: rgba(43, 51, 63, 0.7);
+	z-index: 5;
 }
 
 #video > div.vjs-control-bar {
 	height: 50px;
 	align-content: center;
 	justify-content: space-between;
+	bottom: initial;
+	top: 0;
+	z-index: 2;
+	display: flex;
 }
 
 .vjs-control.progress-control-bar.has-started {
@@ -31,27 +36,6 @@
 	visibility: visible;
 	opacity: 1;
 	transition: visibility 0.1s, opacity 0.1s;
-}
-
-.vjs-control.progress-control-bar.has-started.vjs-user-active,
-.vjs-title-content.vjs-user-active,
-#video > div.vjs-controls.vjs-top-bar.vjs-user-active {
-	display: flex;
-	visibility: visible;
-	opacity: 1;
-	transition: visibility 0.1s, opacity 0.1s;
-}
-
-#video > div.vjs-controls.vjs-top-bar.vjs-user-active {
-	display: grid;
-}
-
-.vjs-control.progress-control-bar.has-started.vjs-user-inactive,
-.vjs-title-content.vjs-user-inactive,
-#video > div.vjs-controls.vjs-top-bar.vjs-user-inactive {
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 1s, opacity 1s;
 }
 
 #video > div.vjs-poster {
@@ -100,58 +84,21 @@
 	height: 50px;
 	width: 50px;
 	z-index: 3;
-	font-size: 1.75em;
 	position: relative;
 }
 
-.vjs-controls.vjs-top-bar {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	display: grid;
-	grid-template-columns: 50px 1fr 50px;
-	grid-template-rows: 1fr 1fr;
-	gap: 0px 0px;
-	grid-template-areas:
-		'closed-caption title fullscreen'
-		'subtitle subtitle subtitle';
-	background-color: #2b333f;
-	background-color: rgba(43, 51, 63, 0.7);
+/* cc button */
+div.vjs-subs-caps-button.vjs-menu-button {
+	font-size: 1.75em;
 }
 
-#video
-	> div.vjs-controls.vjs-top-bar
-	> div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
-	grid-area: closed-caption;
-}
-
-#video > div.vjs-controls.vjs-top-bar > div.vjs-title {
-	grid-area: title;
-}
-
-#video > div.vjs-controls.vjs-top-bar > div.vjs-subtitle {
-	grid-area: subtitle;
-}
-
-#video > div.vjs-controls.vjs-top-bar > .vjs-fullscreen-control.vjs-control.vjs-button {
-	grid-area: fullscreen;
-}
-
-#video
-	> div.vjs-controls.vjs-top-bar
-	> div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
-	> div
-	> ul {
+div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button > div > ul {
 	background-color: #2b333f;
 	width: 100%;
 	max-height: 15em;
 	position: relative;
 }
-
-#video
-	> div.vjs-controls.vjs-top-bar
-	> div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
-	> div {
+div.vjs-subs-caps-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button > div {
 	bottom: -50px;
 	left: 8px;
 }
@@ -165,40 +112,31 @@
 	z-index: 4;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
+/* playbackrate button */
+div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button
 	> div.vjs-menu
 	> ul {
 	max-height: fit-content;
 	background-color: #2b333f;
-	bottom: 16px;
+	top: 16px;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
-	margin-left: 16px;
+div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
 	text-align: left;
+	font-size: 1.25em;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button {
-	margin-right: 24px;
+/* quality-select-button */
+div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button {
+	font-size: 16px;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
 	> div {
-	left: initial;
-	right: -8px;
+	left: -52px;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
 	> div
 	> ul {
 	max-height: fit-content;
@@ -206,13 +144,16 @@
 	bottom: 16px;
 }
 
-#video
-	> div.vjs-control-bar
-	> div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
+div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
 	> button {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+}
+
+/* fullscreen-toggle */
+div.vjs-control-bar > button.vjs-fullscreen-control {
+	font-size: 1.75em;
 }
 
 #video > button.vjs-big-play-button {
@@ -286,10 +227,6 @@
 
 .vjs-overlay .next-button .icon:hover {
 	transform: translateX(25px);
-}
-
-.vjs-control-bar {
-	z-index: 2;
 }
 
 /* touch-overlay bootstrap */
