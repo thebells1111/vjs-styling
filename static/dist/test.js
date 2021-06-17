@@ -28,6 +28,7 @@ class MaxQualityButton extends MenuButton {
 	}
 
 	handleMenuItemClick(e) {
+		console.log(e);
 		const selectedIndex = parseInt(e.currentTarget.dataset.id, 10);
 		const selQuality = this.parent.qualityLevels.find(function (level) {
 			return level.id === selectedIndex;
@@ -69,6 +70,7 @@ class MaxQualityButton extends MenuButton {
 		const menuItem = new MenuItem(this.player_, { el: buttonEl });
 
 		menuItem.on('click', this.handleMenuItemClick.bind(this));
+		menuItem.on('touchstart', this.handleMenuItemClick.bind(this));
 
 		menu.addItem(menuItem);
 	}

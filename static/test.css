@@ -141,7 +141,8 @@ div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality
 	> ul {
 	max-height: fit-content;
 	background-color: #2b333f;
-	bottom: 16px;
+	bottom: initial;
+	top: 16px;
 }
 
 div.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button.vjs-max-quality-selector-button
