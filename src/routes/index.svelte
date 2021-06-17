@@ -68,7 +68,8 @@
 				loadScript('/dist/topbar.js'),
 				loadScript('/dist/title-overlay.js'),
 				loadScript('/dist/subtitle-overlay.js'),
-				loadScript('/dist/progressBar.js')
+				loadScript('/dist/progressBar.js'),
+				loadScript('/dist/touch-overlay.js')
 			]);
 		})();
 
@@ -93,10 +94,6 @@
 
 					{
 						name: 'PlaybackRateMenuButton'
-					},
-
-					{
-						name: 'playToggle'
 					}
 				]
 			}
@@ -122,6 +119,8 @@
 			displayMode: 1,
 			index: 5
 		});
+
+		$player.touchOverlay();
 
 		$player.src({
 			src:
@@ -156,7 +155,7 @@
 		<!-- svelte-ignore a11y-media-has-caption-->
 		<video
 			id="video"
-			class="video-js vjs-default-skin vjs-big-play-centered "
+			class="video-js vjs-default-skin"
 			preload="none"
 			controls
 		/>
