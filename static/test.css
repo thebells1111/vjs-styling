@@ -8,8 +8,19 @@
 	display: initial;
 }
 
-.vjs-control.progress-control-bar {
-	display: none;
+#video > div.vjs-control-bar {
+	height: 50px;
+	align-content: center;
+	justify-content: space-between;
+	bottom: initial;
+	top: 0;
+	z-index: 3;
+	display: flex;
+	border-radius: 12px 12px 0 0;
+	background-color: rgba(43, 51, 63, 0);
+}
+
+#video > .progress-control-bar {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
@@ -17,22 +28,29 @@
 	right: 0;
 	height: 50px;
 	background-color: #2b333f;
-	background-color: rgba(43, 51, 63, 0.7);
+	background-color: rgba(43, 51, 63, 0);
 	z-index: 5;
+	border-radius: 0 0 12px 12px;
 }
 
-#video > div.vjs-control-bar {
-	height: 50px;
-	align-content: center;
-	justify-content: space-between;
-	bottom: initial;
-	top: 0;
-	z-index: 2;
+.progress-control-bar.has-started {
 	display: flex;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0.1s, opacity 0.1s;
 }
 
-.vjs-control.progress-control-bar.has-started {
-	display: flex;
+.progress-control-bar.vjs-user-inactive,
+div.vjs-title.vjs-user-inactive,
+div.vjs-subtitle.vjs-user-inactive {
+	visibility: visible;
+	opacity: 0;
+	transition: visibility 1s, opacity 1s;
+}
+
+.progress-control-bar.vjs-user-active,
+div.vjs-title.vjs-user-active,
+div.vjs-subtitle.vjs-user-active {
 	visibility: visible;
 	opacity: 1;
 	transition: visibility 0.1s, opacity 0.1s;
@@ -69,14 +87,14 @@
 .vjs-current-time.vjs-time-control.vjs-control {
 	position: absolute;
 	left: 0;
-	top: -24px;
+	top: 24px;
 	z-index: 2;
 }
 
 .vjs-duration.vjs-time-control.vjs-control {
 	position: absolute;
 	right: 0;
-	top: -24px;
+	top: 24px;
 	z-index: 2;
 }
 
@@ -131,6 +149,8 @@ div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-butt
 	max-height: fit-content;
 	background-color: #2b333f;
 	top: 16px;
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 div.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
@@ -172,6 +192,13 @@ div.vjs-control-bar > button.vjs-fullscreen-control {
 	display: none;
 }
 
+.vjs-loading-spinner {
+	margin: -40px 0 0 -40px;
+	width: 80px;
+	height: 80px;
+	border-radius: 80px;
+}
+
 /* touch-overlay */
 
 .video-js .overlay-row {
@@ -189,6 +216,8 @@ div.vjs-control-bar > button.vjs-fullscreen-control {
 	bottom: 0;
 	z-index: 1;
 	width: 100%;
+	background-color: #2b333f;
+	background-color: rgba(43, 51, 63, 0.5);
 }
 
 .vjs-overlay .control-overlay-buttons {
@@ -208,6 +237,18 @@ div.vjs-control-bar > button.vjs-fullscreen-control {
 
 .visible-none {
 	visibility: hidden !important;
+}
+
+.vjs-title {
+	position: absolute;
+	top: 43px;
+	z-index: 2;
+}
+
+.vjs-subtitle {
+	position: absolute;
+	bottom: 27px;
+	z-index: 2;
 }
 
 .d-none {

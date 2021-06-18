@@ -81,7 +81,7 @@
 		//https://nikushx.com/blog/2019/05/21/creating-custom-components-with-video-js/
 
 		$player = videojs('video', {
-			playbackRates: ['3.00', '2.50', '2.00', '1.50', '1.00', '1.25', '0.75', '0.50'],
+			playbackRates: ['0.50', '0.75', '1.00', '1.25', '1.50', '2.00', '2.5', '3.00'],
 			controlBar: {
 				children: [
 					{
@@ -99,18 +99,15 @@
 		});
 
 		$player.addChild(new ProgressControlBar($player, {}));
-		// let topBar = $player.addChild(new TopBar($player, {}));
-		// let title = new Title($player, {
-		// 	text: 'Title',
-		// 	parent: topBar
-		// });
-		// let subtitle = new Subtitle($player, {
-		// 	text: 'Subtitle',
-		// 	parent: topBar
-		// });
+		let title = new Title($player, {
+			text: 'Title'
+		});
+		let subtitle = new Subtitle($player, {
+			text: 'Subtitle'
+		});
 
-		// topBar.addChild(title);
-		// topBar.addChild(subtitle);
+		$player.addChild(title);
+		$player.addChild(subtitle);
 
 		$player.maxQualitySelector({
 			displayMode: 1,

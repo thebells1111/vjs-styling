@@ -102,20 +102,30 @@ const eventsInitialize = (player, overlay) => {
 
 	overlay.addEventListener('click', function (e) {
 		const controlBar = document.querySelector('.vjs-control-bar');
+		const progressBar = document.querySelector('.progress-control-bar');
+		const title = document.querySelector('div.vjs-title');
+		const subtitle = document.querySelector('div.vjs-subtitle');
 
 		// If clicked element is overlay button, then ignore this
 		if (e.target.classList.contains('icon') || e.target instanceof SVGElement) {
 			return;
 		}
+		if (!player.paused()) {
+			if (!overlayRow.classList.contains('d-none')) {
+				overlayRow.classList.add('d-none');
+				controlBar.classList.add('d-none');
+				progressBar.classList.add('d-none');
+				title.classList.add('d-none');
+				subtitle.classList.add('d-none');
+			} else {
+				overlayRow.classList.remove('d-none');
 
-		if (!overlayRow.classList.contains('d-none')) {
-			overlayRow.classList.add('d-none');
-			controlBar.classList.add('d-none');
-		} else {
-			overlayRow.classList.remove('d-none');
-
-			if (!isLocked) {
-				controlBar.classList.remove('d-none');
+				if (!isLocked) {
+					controlBar.classList.remove('d-none');
+					progressBar.classList.remove('d-none');
+					title.classList.remove('d-none');
+					subtitle.classList.remove('d-none');
+				}
 			}
 		}
 	});
